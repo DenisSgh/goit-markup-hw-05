@@ -7,6 +7,7 @@
   --hover-button-text-color: #ffffff;
   --icons-color: #afb1b8;
   --hover-social-icons-color: #ffffff;
+  --transition-parameter: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Тельце */
@@ -39,6 +40,7 @@ h3 {
 
 button {
   font-family: inherit;
+  cursor: pointer;
 }
 
 img {
@@ -114,8 +116,35 @@ header {
   padding: 32px 0;
 }
 
+.site-nav .item {
+  position: relative;
+}
+
 .site-nav .item:not(:last-child) {
   margin-right: 50px;
+}
+
+.site-nav .link::after {
+  content: '';
+
+  display: block;
+  width: 0;
+  height: 4px;
+
+  position: absolute;
+  bottom: -1px;
+  right: 0;
+
+  background: var(--hover-nav-color);
+  border-radius: 2px;
+
+  transition: width var(--transition-parameter);
+}
+
+.site-nav .link:hover::after,
+.site-nav .link:focus::after {
+  width: 100%;
+  left: 0;
 }
 
 .site-info {
@@ -123,6 +152,7 @@ header {
   margin-left: auto;
   align-items: center;
 }
+
 .site-info .link {
   display: flex;
   align-items: center;
@@ -154,6 +184,21 @@ header {
 .link:focus,
 .link-current {
   color: var(--hover-nav-color);
+}
+
+.site-nav .link-current::after {
+  content: '';
+
+  display: block;
+  width: 100%;
+  height: 4px;
+
+  position: absolute;
+  bottom: -1px;
+  right: 0;
+
+  background: var(--hover-nav-color);
+  border-radius: 2px;
 }
 
 /*! MAIN INDEX */
@@ -191,17 +236,28 @@ header {
   margin: 0 auto 30px;
 }
 
-.hero a {
+.hero button {
   display: inline-block;
+  padding: 10px 32px;
+  text-align: center;
+
   color: #ffffff;
   background-color: var(--hover-nav-color);
   font-weight: 700;
   font-size: 16px;
   line-height: 1.88;
+  cursor: pointer;
+
+  border: none;
   border-radius: 4px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-  padding: 10px 32px;
-  text-align: center;
+  transition: background-color var(--transition-parameter),
+    color var(--transition-parameter);
+}
+
+.hero button:hover {
+  color: #000000;
+  background-color: #fff;
 }
 
 /* Особенности */
@@ -276,6 +332,7 @@ header {
   align-items: center;
   position: absolute;
   bottom: 0;
+  right: 0;
   height: 70px;
   width: 100%;
   font-weight: 700;
@@ -352,16 +409,20 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+
   width: 44px;
   height: 44px;
   border-radius: 50%;
   fill: var(--icons-color);
+
+  transition: var(--transition-parameter);
 }
 
 .team-link:hover,
 .team-link:focus {
   background-color: var(--hover-nav-color);
   fill: var(--hover-social-icons-color);
+  transform: scale(1.25);
 }
 
 /* Постоянные клиенты */
@@ -389,17 +450,20 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+
   width: 170px;
   height: 90px;
   border: 1px solid var(--icons-color);
   border-radius: 4px;
   fill: var(--icons-color);
+  transition: var(--transition-parameter);
 }
 
 .customers-link:hover,
 .customers-link:focus {
   fill: currentColor;
   border-color: var(--hover-nav-color);
+  transform: scale(1.25);
 }
 
 /*! FOOTER */
@@ -469,12 +533,75 @@ address {
   border-radius: 50%;
   fill: #ffffff;
   background-color: rgba(255, 255, 255, 0.1);
+  transition: var(--transition-parameter);
 }
 
 .social-link:hover,
 .social-link:focus {
   background-color: var(--hover-nav-color);
   fill: var(--hover-social-icons-color);
+  transform: scale(1.25);
+}
+
+/*! Модальное окно */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+
+  transition: var(--transition-parameter);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.backdrop.is-hidden .modal {
+  transition: var(--transition-parameter);
+  transform: translate(-50%, -50%) rotate(90deg) scale(0.5);
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+
+  min-width: 528px;
+  min-height: 581px;
+  background: #ffffff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.button-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 30px;
+  height: 30px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  fill: currentColor;
+  cursor: pointer;
+
+  transition: var(--transition-parameter);
+}
+
+.button-close:hover,
+.button-close:focus {
+  fill: var(--hover-nav-color);
 }
 
 /*! MAIN PORTFOLIO */
