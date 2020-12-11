@@ -602,12 +602,14 @@ address {
   fill: currentColor;
   cursor: pointer;
 
-  transition: var(--transition-parameter);
+  transition: fill var(--transition-parameter),
+    scale var(--transition-parameter);
 }
 
 .button-close:hover,
 .button-close:focus {
   fill: var(--hover-nav-color);
+  transform: scale(1.05);
 }
 
 /*! MAIN PORTFOLIO */
